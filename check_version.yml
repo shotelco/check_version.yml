@@ -1,0 +1,13 @@
+---
+- hosts: localhost
+  connection: local # Ensures it runs within Semaphore's environment
+  gather_facts: no
+  tasks:
+    - name: Get Ansible version from command line
+      ansible.builtin.command: ansible --version
+      register: version_output
+      changed_when: false # This command doesn't change anything
+
+    - name: Display Ansible version
+      ansible.builtin.debug:
+        var: version_output.stdout_lines
